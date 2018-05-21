@@ -22,6 +22,8 @@ namespace ReservationDesktop
         public AboutWindow()
         {
             InitializeComponent();
+            AboutProgram.Text = "Программа предназначена для обслуживания" +
+                " и администрирования салонов красоты. ";
         }
     }
 }

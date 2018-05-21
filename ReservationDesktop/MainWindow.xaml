@@ -17,18 +17,18 @@
             </Menu>
             <StackPanel></StackPanel>
         </DockPanel>
-        <TextBox x:Name="NameBox"  HorizontalAlignment="Left" Height="20" Margin="25,64,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="102"/>
+        <TextBox x:Name="NameBox"  HorizontalAlignment="Left" Height="20" Margin="25,64,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="133"/>
         <Label Content="Имя клиента" HorizontalAlignment="Left" Height="25" Margin="25,39,0,0" VerticalAlignment="Top" Width="102"/>
-        <TextBox x:Name="PhoneNumberBox"  HorizontalAlignment="Left" Height="20" Margin="162,64,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="102"/>
-        <Label Content="Контактный номер" HorizontalAlignment="Left" Height="25" Margin="162,39,0,0" VerticalAlignment="Top" Width="118"/>
-        <DatePicker x:Name="DateBox" HorizontalAlignment="Left" Height="27" Margin="25,133,0,0" VerticalAlignment="Top" Width="102"/>
+        <TextBox x:Name="PhoneNumberBox"  HorizontalAlignment="Left" Height="20" Margin="240,64,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="135"/>
+        <Label Content="Контактный номер" HorizontalAlignment="Left" Height="25" Margin="240,39,0,0" VerticalAlignment="Top" Width="118"/>
+        <DatePicker x:Name="DateBox" HorizontalAlignment="Left" Height="27" Margin="25,133,0,0" VerticalAlignment="Top" Width="133"/>
         <Label Content="Тип услуг" HorizontalAlignment="Left" Height="25" Margin="23,196,0,0" VerticalAlignment="Top" Width="113"/>
         <ComboBox x:Name="ServiceTypeBox"  HorizontalAlignment="Left" Height="22" Margin="24,221,0,0" VerticalAlignment="Top" Width="134" SelectionChanged="ServiceTypeBox_SelectionChanged"/>
-        <Label Content="Мастер" HorizontalAlignment="Left" Height="25" Margin="24,254,0,0" VerticalAlignment="Top" Width="113"/>
-        <ComboBox x:Name="ArtistsBox" HorizontalAlignment="Left" Height="22" Margin="25,279,0,0" VerticalAlignment="Top" Width="134" IsReadOnly="True" IsSynchronizedWithCurrentItem="True"/>
-        <Label Content="Время записи" HorizontalAlignment="Left" Height="25" Margin="162,115,0,0" VerticalAlignment="Top" Width="113"/>
-        <ComboBox x:Name="TimeBox" HorizontalAlignment="Left" Height="22" Margin="163,140,0,0" VerticalAlignment="Top" Width="134"/>
-        <ListBox x:Name="ServicesListBox"  HorizontalAlignment="Left" Height="139" Margin="238,196,0,0" VerticalAlignment="Top" Width="157">
+        <Label Content="Мастер" HorizontalAlignment="Left" Height="25" Margin="23,280,0,0" VerticalAlignment="Top" Width="113"/>
+        <ComboBox x:Name="ArtistsBox" HorizontalAlignment="Left" Height="22" Margin="24,305,0,0" VerticalAlignment="Top" Width="134" IsReadOnly="True" IsSynchronizedWithCurrentItem="True"/>
+        <Label Content="Время записи" HorizontalAlignment="Left" Height="25" Margin="240,115,0,0" VerticalAlignment="Top" Width="113"/>
+        <ComboBox x:Name="TimeBox" HorizontalAlignment="Left" Height="22" Margin="241,140,0,0" VerticalAlignment="Top" Width="134"/>
+        <ListBox x:Name="ServicesListBox"  HorizontalAlignment="Left" Height="131" Margin="240,196,0,0" VerticalAlignment="Top" Width="135">
             <ListBox.ItemTemplate>
                 <HierarchicalDataTemplate>
                     <CheckBox Content="{Binding Name}"  IsChecked="{Binding IsChecked}"/>
@@ -36,15 +36,15 @@
             </ListBox.ItemTemplate>
         </ListBox>
 
-        <Button x:Name="AddButton" Content="Добавить" HorizontalAlignment="Left" Height="29" Margin="25,326,0,0" VerticalAlignment="Top" Width="144" Click="Button_Add_Click"/>
-        <Button x:Name="DeleteButton"  Content="Удалить" HorizontalAlignment="Left" Margin="25,0,0,425" Width="144" Height="29" VerticalAlignment="Bottom" Click="Button_Delete_Click"/>
-        <Button x:Name="EditButton" Content="Изменить" HorizontalAlignment="Left" Height="33" Margin="25,417,0,0" VerticalAlignment="Top" Width="144" Click="Button_Edit_Click"/>
-        <Button x:Name="FinishButton" Content="Подтвердить" HorizontalAlignment="Left" Height="38" Margin="25,465,0,0" VerticalAlignment="Top" Width="144" Click="Button_Finish_Click" IsEnabled="False"/>
+        <Button x:Name="AddButton" Content="Добавить" HorizontalAlignment="Left" Height="29" Margin="25,403,0,0" VerticalAlignment="Top" Width="144" Click="Button_Add_Click"/>
+        <Button x:Name="DeleteButton"  Content="Удалить" Margin="25,448,0,0" Click="Button_Delete_Click" Height="29" VerticalAlignment="Top" HorizontalAlignment="Left" Width="144"/>
+        <Button x:Name="EditButton" Content="Изменить" HorizontalAlignment="Left" Height="29" Margin="241,403,0,0" VerticalAlignment="Top" Width="144" Click="Button_Edit_Click"/>
+        <Button x:Name="FinishButton" Content="Подтвердить" HorizontalAlignment="Left" Height="29" Margin="241,448,0,0" VerticalAlignment="Top" Width="144" Click="Button_Finish_Click" IsEnabled="False"/>
 
-        <Button Content="Загрузить" Margin="45,0,0,54" Height="29" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="144" Click="Button_Load_Click"/>
-        <Button Content="Сохранить" HorizontalAlignment="Left" Margin="214,0,0,54" Width="144" Height="29" VerticalAlignment="Bottom" Click="Button_Save_Click"/>
+        <Button Content="Загрузить" Margin="25,0,0,54" Height="29" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="144" Click="Button_Load_Click"/>
+        <Button Content="Сохранить" HorizontalAlignment="Left" Margin="241,0,0,54" Width="144" Height="29" VerticalAlignment="Bottom" Click="Button_Save_Click"/>
 
-        <ListView x:Name="ReservationsList"  Margin="545,23,24,54">
+        <ListView x:Name="ReservationsList"  Margin="476,23,24,54">
             <ListView.View>
                 <GridView>
                     <!--<GridViewColumn Header="№" Width="30" DisplayMemberBinding="{Binding N}"/>-->

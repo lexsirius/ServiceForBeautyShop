@@ -5,8 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ReservationDesktop"
         mc:Ignorable="d"
-        Title="AboutWindow" Height="450" Width="800">
+        Title="AboutWindow" Height="200" Width="400">
     <Grid>
-        <Label Content="хуй" HorizontalAlignment="Left" Height="25" Margin="25,39,0,0" VerticalAlignment="Top" Width="102"/>
+        <TextBlock x:Name="AboutProgram" HorizontalAlignment="Left" Height="126" Margin="25,20,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="335"/>
     </Grid>
 </Window>
