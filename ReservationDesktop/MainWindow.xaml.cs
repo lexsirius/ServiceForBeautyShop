@@ -181,21 +181,27 @@ namespace ReservationDesktop
 
         private void Button_Load_Click(object sender, RoutedEventArgs e)
         {
-            Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog
+            try
             {
-                DefaultExt = ".xml",
-                Filter = "Файлы записей|*.xml",
-                FileName = "Записи"
-            };
-            dlg.ShowDialog();
-
-            using (var fileStream = dlg.OpenFile())
-            {
-                Reservation[] reservationsInFile = (Reservation[])serializer.Deserialize(fileStream);
-                foreach (var reservation in reservationsInFile)
+                Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog
                 {
-                    reservations.Add(reservation);
+                    DefaultExt = ".xml",
+                    Filter = "Файлы записей|*.xml",
+                    FileName = "Записи"
+                };
+                dlg.ShowDialog();
+
+                using (var fileStream = dlg.OpenFile())
+                {
+                    Reservation[] reservationsInFile = (Reservation[]) serializer.Deserialize(fileStream);
+                    foreach (var reservation in reservationsInFile)
+                    {
+                        reservations.Add(reservation);
+                    }
                 }
+            }
+            catch (Exception)
+            {
             }
         }
 
@@ -207,34 +213,84 @@ namespace ReservationDesktop
             }
         }
 
+        private int editIndex = -1;
+        private bool editMode = false;
+
         private void Button_Edit_Click(object sender, RoutedEventArgs e)
         {
-            Add.IsEnabled = false;
-            var reserv = ReservationsList.SelectedItem as Reservation;
-
-            //var serv = ReservationsList.SelectedItem as Service;
-            if (reserv == null)
-                return;
+            if (editMode)
+            {
+                DisableEdit();
+            }
             else
             {
-                NameBox.Text = reserv.ClientName;
-                PhoneNumberBox.Text = reserv.PhoneNumber;
-                DateBox.DisplayDate = reserv.ReservationDateTime;
-                DateBox.Text = reserv.ReservationDate;
-                TimeBox.SelectedItem = reserv.ReservationTime;
-                //ServiceTypeBox
-                //ServicesListBox
-                ArtistsBox.SelectedItem = reserv.MakeupArtist;
-                ServicesListBox.SelectedItem = reserv.Services;
+                EnableEdit();
             }
         }
 
-        private void Button_OK_Click(object sender, RoutedEventArgs e)
+        private void EnableEdit()
         {
-            var reservIndex = ReservationsList.SelectedIndex;
-            reservations.RemoveAt(reservIndex);
-            reservations.Insert(reservIndex,
-                new Reservation(
+            var index = ReservationsList.SelectedIndex;
+            if (index >= 0)
+            {
+                //ErrorLabel.Visibility = Visibility.Hidden;
+                AddButton.IsEnabled = DeleteButton.IsEnabled = false;
+                FinishButton.IsEnabled = true;
+                EditButton.Content = "Отмена";
+
+                var reserv = reservations[index];
+                NameBox.Text = reserv.ClientName;
+                PhoneNumberBox.Text = reserv.PhoneNumber;
+                //DateBox.DisplayDate = reserv.ReservationDateTime;
+                DateBox.SelectedDate = reserv.ReservationDateTime;
+                //DateBox.Text = reserv.ReservationDate;
+                TimeBox.SelectedItem = reserv.ReservationTime;
+                ArtistsBox.SelectedItem = reserv.MakeupArtist;
+                ServicesListBox.SelectedItem = reserv.Services;
+                ServiceTypeBox.SelectedItem = GetServiceType(reserv.ServiceList[0]);
+                ServiceTypeBox_SelectionChanged(null, null);
+                foreach (var service in reserv.ServiceList)
+                {
+                    foreach (var availableService in availableServices)
+                    {
+                        if (availableService.Name == service)
+                        {
+                            availableService.IsChecked = true;
+                        }
+                    }
+                }
+
+                editIndex = index;
+                editMode = true;
+            }
+        }
+
+        private object GetServiceType(string service)
+        {
+            foreach (var existingService in services)
+            {
+                if (service == existingService.Name)
+                {
+                    return existingService.Type;
+                }
+            }
+
+            return null;
+        }
+
+        private void DisableEdit()
+        {
+            //ErrorLabel.Visibility = Visibility.Hidden;
+            AddButton.IsEnabled = DeleteButton.IsEnabled = true;
+            FinishButton.IsEnabled = false;
+            EditButton.Content = "Изменить";
+            editIndex = -1;
+            editMode = false;
+        }
+
+        private void Button_Finish_Click(object sender, RoutedEventArgs e)
+        {
+            reservations[editIndex] = new Reservation(
                 NameBox.Text,
                 PhoneNumberBox.Text,
                 GetDateTime(),
@@ -243,8 +299,18 @@ namespace ReservationDesktop
                         .Where(service => service.IsChecked)
                         .Select(service => service.Name)),
                 (string)ArtistsBox.Items[ArtistsBox.SelectedIndex]
-            ));
-            Add.IsEnabled = true;
+            );
+            DisableEdit();
+        }
+
+        private void MenuItem_Exit_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
+
+        private void MenuItem_About_Click(object sender, RoutedEventArgs e)
+        {
+            new AboutWindow().Show();
         }
     }
 }

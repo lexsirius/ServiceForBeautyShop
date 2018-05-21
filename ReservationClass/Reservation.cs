@@ -34,12 +34,5 @@ namespace ReservationClass
             ServiceList = serviceList;
             MakeupArtist = makeupArtist;
         }
-
-
-
-
-
-
-
     }
 }
