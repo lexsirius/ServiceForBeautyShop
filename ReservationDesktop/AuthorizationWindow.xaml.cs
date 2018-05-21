@@ -36,14 +36,14 @@ namespace ReservationDesktop
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            if (LoginTextBox.Text == AdminLogin && PasswordTextBox.Text == AdminPassword)
+            if (LoginTextBox.Text == AdminLogin && PasswordTextBox.Password == AdminPassword)
             {
                 new AdministrationWindow().Show();
                 Close();
                 return;
             }
 
-            User attempt = new User(LoginTextBox.Text, PasswordTextBox.Text);
+            User attempt = new User(LoginTextBox.Text, PasswordTextBox.Password);
             foreach (var user in users)
             {
                 if (attempt == user)

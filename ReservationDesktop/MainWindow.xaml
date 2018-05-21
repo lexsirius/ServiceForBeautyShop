@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ReservationDesktop"
         mc:Ignorable="d"
-        Title="MainWindow" Height="856.075" Width="1195" WindowState="Maximized">
+        Title="Диспетчер" Height="856.075" Width="1195" WindowState="Maximized">
     <Grid>
         <DockPanel>
             <Menu DockPanel.Dock="Top">
@@ -17,18 +17,18 @@
             </Menu>
             <StackPanel></StackPanel>
         </DockPanel>
-        <TextBox x:Name="NameBox"  HorizontalAlignment="Left" Height="20" Margin="25,64,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="133"/>
+        <TextBox x:Name="NameBox"  HorizontalAlignment="Left" Height="20" Margin="25,64,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="144"/>
         <Label Content="Имя клиента" HorizontalAlignment="Left" Height="25" Margin="25,39,0,0" VerticalAlignment="Top" Width="102"/>
-        <TextBox x:Name="PhoneNumberBox"  HorizontalAlignment="Left" Height="20" Margin="240,64,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="135"/>
+        <TextBox x:Name="PhoneNumberBox"  HorizontalAlignment="Left" Height="20" Margin="240,64,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="145"/>
         <Label Content="Контактный номер" HorizontalAlignment="Left" Height="25" Margin="240,39,0,0" VerticalAlignment="Top" Width="118"/>
-        <DatePicker x:Name="DateBox" HorizontalAlignment="Left" Height="27" Margin="25,133,0,0" VerticalAlignment="Top" Width="133"/>
+        <DatePicker x:Name="DateBox" HorizontalAlignment="Left" Height="27" Margin="25,133,0,0" VerticalAlignment="Top" Width="144"/>
         <Label Content="Тип услуг" HorizontalAlignment="Left" Height="25" Margin="23,196,0,0" VerticalAlignment="Top" Width="113"/>
-        <ComboBox x:Name="ServiceTypeBox"  HorizontalAlignment="Left" Height="22" Margin="24,221,0,0" VerticalAlignment="Top" Width="134" SelectionChanged="ServiceTypeBox_SelectionChanged"/>
+        <ComboBox x:Name="ServiceTypeBox"  HorizontalAlignment="Left" Height="22" Margin="24,221,0,0" VerticalAlignment="Top" Width="145" SelectionChanged="ServiceTypeBox_SelectionChanged"/>
         <Label Content="Мастер" HorizontalAlignment="Left" Height="25" Margin="23,280,0,0" VerticalAlignment="Top" Width="113"/>
-        <ComboBox x:Name="ArtistsBox" HorizontalAlignment="Left" Height="22" Margin="24,305,0,0" VerticalAlignment="Top" Width="134" IsReadOnly="True" IsSynchronizedWithCurrentItem="True"/>
+        <ComboBox x:Name="ArtistsBox" HorizontalAlignment="Left" Height="22" Margin="24,305,0,0" VerticalAlignment="Top" Width="145" IsReadOnly="True" IsSynchronizedWithCurrentItem="True"/>
         <Label Content="Время записи" HorizontalAlignment="Left" Height="25" Margin="240,115,0,0" VerticalAlignment="Top" Width="113"/>
-        <ComboBox x:Name="TimeBox" HorizontalAlignment="Left" Height="22" Margin="241,140,0,0" VerticalAlignment="Top" Width="134"/>
-        <ListBox x:Name="ServicesListBox"  HorizontalAlignment="Left" Height="131" Margin="240,196,0,0" VerticalAlignment="Top" Width="135">
+        <ComboBox x:Name="TimeBox" HorizontalAlignment="Left" Height="22" Margin="241,140,0,0" VerticalAlignment="Top" Width="144"/>
+        <ListBox x:Name="ServicesListBox"  HorizontalAlignment="Left" Height="131" Margin="240,196,0,0" VerticalAlignment="Top" Width="145">
             <ListBox.ItemTemplate>
                 <HierarchicalDataTemplate>
                     <CheckBox Content="{Binding Name}"  IsChecked="{Binding IsChecked}"/>

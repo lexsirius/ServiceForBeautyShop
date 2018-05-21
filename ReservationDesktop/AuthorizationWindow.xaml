@@ -5,13 +5,14 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ReservationDesktop"
         mc:Ignorable="d"
-        Title="AuthorizationWindow" Height="200" Width="300" ResizeMode="NoResize">
-    <Grid>
+        Title="Окно авторизации" Height="210
+        " Width="300" ResizeMode="NoResize">
+    <Grid Margin="0,0,0,-5">
         <Label Content="Имя пользователя" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="50,14,0,0"/>
         <TextBox x:Name="LoginTextBox" HorizontalAlignment="Left" Height="24" Margin="50,40,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="200"/>
         <Label Content="Пароль" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="50,64,0,0"/>
-        <TextBox x:Name="PasswordTextBox" HorizontalAlignment="Left" Height="24" Margin="50,90,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="200"/>
-        <Button Content="Войти" HorizontalAlignment="Left" Height="24" Margin="100,125,0,0" VerticalAlignment="Top" Width="100" Click="Button_Click"/>
+        <Button Content="Войти" HorizontalAlignment="Left" Height="25" Margin="100,136,0,0" VerticalAlignment="Top" Width="100" Click="Button_Click"/>
         <Label x:Name="ErrorLabel" Content="Неверное имя пользователя или пароль" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="35,-4,0,0" Foreground="Red" Visibility="Hidden"/>
+        <PasswordBox x:Name="PasswordTextBox" HorizontalAlignment="Left" Height="30" Margin="50,90,0,0" VerticalAlignment="Top" Width="200"/>
     </Grid>
 </Window>
