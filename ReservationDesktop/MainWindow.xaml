@@ -10,12 +10,18 @@
         <DockPanel>
             <Menu DockPanel.Dock="Top">
                 <MenuItem Header="_Файл">
-                    <MenuItem Header="_Выход" Click="MenuItem_Exit_Click"/>
-                </MenuItem>
-                <MenuItem Header="_О программе" Click="MenuItem_About_Click">
-                </MenuItem>
+                    <MenuItem Header="_Загрузить файл" Click="MenuItem_Load_Click"/>
+                    <MenuItem Header="_Сохранить файл" Click="MenuItem_Save_Click"/>
+                    <MenuItem Header="_Экспорт...">
+                        <MenuItem Header="_Word" Click="MenuItem_SaveWord_Click"/>
+                        <MenuItem Header="_Exсel" Click="MenuItem_SaveExсel_Click"/>
+                    </MenuItem>
+                        <MenuItem Header="_Выход" Click="MenuItem_Exit_Click"/>
+                    </MenuItem>
+                    <MenuItem Header="_О программе" Click="MenuItem_About_Click">
+                    </MenuItem>
             </Menu>
-            <StackPanel></StackPanel>
+            <StackPanel/>
         </DockPanel>
         <TextBox x:Name="NameBox"  HorizontalAlignment="Left" Height="20" Margin="25,64,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="144"/>
         <Label Content="Имя клиента" HorizontalAlignment="Left" Height="25" Margin="25,39,0,0" VerticalAlignment="Top" Width="102"/>
@@ -44,7 +50,7 @@
         <Button Content="Загрузить" Margin="25,0,0,54" Height="29" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="144" Click="Button_Load_Click"/>
         <Button Content="Сохранить" HorizontalAlignment="Left" Margin="241,0,0,54" Width="144" Height="29" VerticalAlignment="Bottom" Click="Button_Save_Click"/>
 
-        <ListView x:Name="ReservationsList"  Margin="476,23,24,54">
+        <ListView x:Name="ReservationsList"  Margin="474,23,26,54">
             <ListView.View>
                 <GridView>
                     <!--<GridViewColumn Header="№" Width="30" DisplayMemberBinding="{Binding N}"/>-->

@@ -16,6 +16,8 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Xml.Serialization;
 using ReservationClass;
+using Excel = Microsoft.Office.Interop.Excel;
+using Word = Microsoft.Office.Interop.Word;
 
 namespace ReservationDesktop
 {
@@ -193,7 +195,7 @@ namespace ReservationDesktop
 
                 using (var fileStream = dlg.OpenFile())
                 {
-                    Reservation[] reservationsInFile = (Reservation[]) serializer.Deserialize(fileStream);
+                    Reservation[] reservationsInFile = (Reservation[])serializer.Deserialize(fileStream);
                     foreach (var reservation in reservationsInFile)
                     {
                         reservations.Add(reservation);
@@ -311,6 +313,110 @@ namespace ReservationDesktop
         private void MenuItem_About_Click(object sender, RoutedEventArgs e)
         {
             new AboutWindow().Show();
+        }
+
+        private void MenuItem_Load_Click(object sender, RoutedEventArgs e)
+        {
+            Button_Load_Click(sender, e);
+        }
+
+        private void MenuItem_Save_Click(object sender, RoutedEventArgs e)
+        {
+            Button_Save_Click(sender, e);
+        }
+
+
+        private Word.Application WordApp;
+        private Word.Document Doc;
+        private void MenuItem_SaveWord_Click(object sender, RoutedEventArgs e)
+        {
+            WordApp = new Word.Application();
+            WordApp.Visible = true;
+            WordApp.Documents.Add();
+            Doc = WordApp.Documents[1];
+            var rowsCount = reservations.Count + 1;
+            var wordRange = Doc.Range(0, 0);
+            var wordTable = Doc.Tables.Add(wordRange, rowsCount, 6);
+            wordTable.Cell(1, 1).Range.Text = "Время";
+            wordTable.Cell(1, 2).Range.Text = "Дата";
+            wordTable.Cell(1, 3).Range.Text = "Мастер";
+            wordTable.Cell(1, 4).Range.Text = "Услуга";
+            wordTable.Cell(1, 5).Range.Text = "Клиент";
+            wordTable.Cell(1, 6).Range.Text = "Контактный номер";
+            for (var i = 0; i < rowsCount - 1; i++)
+            {
+                wordTable.Cell(i + 2, 1).Range.Text = reservations[i].ReservationTime;
+                wordTable.Cell(i + 2, 2).Range.Text = reservations[i].ReservationDate;
+                wordTable.Cell(i + 2, 3).Range.Text = reservations[i].MakeupArtist;
+                wordTable.Cell(i + 2, 4).Range.Text = reservations[i].Services;
+                wordTable.Cell(i + 2, 5).Range.Text = reservations[i].ClientName;
+                wordTable.Cell(i + 2, 6).Range.Text = reservations[i].PhoneNumber;
+            }
+
+            try
+            {
+                Microsoft.Win32.SaveFileDialog dlg = new Microsoft.Win32.SaveFileDialog
+                {
+                    DefaultExt = ".docx",
+                    Filter = "Файлы записей в формате Word|*.docx",
+                    FileName = "Документ Word"
+                };
+                dlg.ShowDialog();
+
+                using (var fileStream = dlg.OpenFile())
+                {
+                    Doc.SaveAs(fileStream);
+                }
+            }
+            catch (Exception)
+            {
+            }
+
+        }
+
+        private Excel.Application ExcelApp;
+        private Excel.Worksheet ExcelWorksheet;
+        private void MenuItem_SaveExсel_Click(object sender, RoutedEventArgs e)
+        {
+            ExcelApp = new Excel.Application();
+            ExcelApp.Visible = true;
+            ExcelApp.SheetsInNewWorkbook = 1;
+            ExcelApp.Workbooks.Add();
+            ExcelWorksheet = ExcelApp.Workbooks[1].Worksheets.Item[1];
+
+            ExcelWorksheet.Range["A1"].Value = "Время";
+            ExcelWorksheet.Range["B1"].Value = "Дата";
+            ExcelWorksheet.Range["C1"].Value = "Мастер";
+            ExcelWorksheet.Range["D1"].Value = "Услуга";
+            ExcelWorksheet.Range["E1"].Value = "Клиент";
+            ExcelWorksheet.Range["F1"].Value = "Контактный номер";
+            for (var i = 0; i < reservations.Count; i++)
+            {
+                ExcelWorksheet.Cells[i + 2, 1].Value = reservations[i].ReservationTime;
+                ExcelWorksheet.Cells[i + 2, 2].Value = reservations[i].ReservationDate;
+                ExcelWorksheet.Cells[i + 2, 3].Value = reservations[i].MakeupArtist;
+                ExcelWorksheet.Cells[i + 2, 4].Value = reservations[i].Services;
+                ExcelWorksheet.Cells[i + 2, 5].Value = reservations[i].ClientName;
+                ExcelWorksheet.Cells[i + 2, 6].Value = reservations[i].PhoneNumber;
+            }
+            try
+            {
+                Microsoft.Win32.SaveFileDialog dlg = new Microsoft.Win32.SaveFileDialog
+                {
+                    DefaultExt = ".xlsx",
+                    Filter = "Файлы записей в формате Excel|*.xlsx",
+                    FileName = "Таблица Excel"
+                };
+                dlg.ShowDialog();
+
+                using (var fileStream = dlg.OpenFile())
+                {
+                    ExcelApp.Workbooks[1].SaveAs(fileStream);
+                }
+            }
+            catch (Exception)
+            {
+            }
         }
     }
 }
