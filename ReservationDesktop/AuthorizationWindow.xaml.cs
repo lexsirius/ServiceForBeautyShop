@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -21,8 +22,7 @@ namespace ReservationDesktop
     /// </summary>
     public partial class AuthorizationWindow : Window
     {
-        private const string AdminLogin = "kek";
-        private const string AdminPassword = "kek";
+        private User Admin = new User("kek", "4cfdc2e157eefe6facb983b1d557b3a1");
         private const string UsersFilePath = "users.xml";
 
         private readonly XmlSerializer serializer = new XmlSerializer(typeof(User[]));
@@ -36,14 +36,14 @@ namespace ReservationDesktop
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            if (LoginTextBox.Text == AdminLogin && PasswordTextBox.Password == AdminPassword)
+            User attempt = new User(LoginTextBox.Text, PasswordTextBox.Password).EncryptPassword();
+            if (attempt == Admin)
             {
                 new AdministrationWindow().Show();
                 Close();
                 return;
             }
 
-            User attempt = new User(LoginTextBox.Text, PasswordTextBox.Password);
             foreach (var user in users)
             {
                 if (attempt == user)

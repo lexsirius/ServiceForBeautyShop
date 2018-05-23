@@ -7,16 +7,16 @@
         mc:Ignorable="d"
         Title="Администрация" Height="450" Width="600">
     <Grid>
-        <Label x:Name="ErrorLabel" Content="Такой пользователь уже существует" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="255,38,0,0" Foreground="Red" Visibility="Hidden"/>
+        <Label x:Name="ErrorLabel" Content="Такой пользователь уже существует" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="50,62,0,0" Foreground="Red" Visibility="Hidden"/>
         <Label Content="Имя пользователя" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="50,14,0,0"/>
         <TextBox x:Name="LoginTextBox" HorizontalAlignment="Left" Height="24" Margin="50,40,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="220"/>
-        <Label Content="Пароль" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="50,64,0,0"/>
-        <TextBox x:Name="PasswordTextBox" HorizontalAlignment="Left" Height="24" Margin="50,90,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="220"/>
+        <Label Content="Пароль" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="50,93,0,0"/>
+        <TextBox x:Name="PasswordTextBox" HorizontalAlignment="Left" Height="24" Margin="50,119,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="220"/>
 
-        <Button x:Name="AddButton" Content="Добавить" HorizontalAlignment="Left" Height="24" Margin="50,139,0,0" VerticalAlignment="Top" Width="100" Click="AddButton_Click"/>
-        <Button x:Name="RemoveButton" Content="Удалить" HorizontalAlignment="Left" Height="24" Margin="50,177,0,0" VerticalAlignment="Top" Width="100" Click="RemoveButton_Click"/>
-        <Button x:Name="EditButton" Content="Изменить" HorizontalAlignment="Left" Height="24" Margin="170,139,0,0" VerticalAlignment="Top" Width="100" Click="EditButton_Click"/>
-        <Button x:Name="FinishButton" Content="Подтвердить" HorizontalAlignment="Left" Height="24" Margin="170,177,0,0" VerticalAlignment="Top" Width="100" Click="FinishButton_Click" IsEnabled="False"/>
+        <Button x:Name="AddButton" Content="Добавить" HorizontalAlignment="Left" Height="24" Margin="50,187,0,0" VerticalAlignment="Top" Width="100" Click="AddButton_Click"/>
+        <Button x:Name="RemoveButton" Content="Удалить" HorizontalAlignment="Left" Height="24" Margin="50,225,0,0" VerticalAlignment="Top" Width="100" Click="RemoveButton_Click"/>
+        <Button x:Name="EditButton" Content="Изменить" HorizontalAlignment="Left" Height="24" Margin="170,187,0,0" VerticalAlignment="Top" Width="100" Click="EditButton_Click"/>
+        <Button x:Name="FinishButton" Content="Подтвердить" HorizontalAlignment="Left" Height="24" Margin="170,225,0,0" VerticalAlignment="Top" Width="100" Click="FinishButton_Click" IsEnabled="False"/>
         <Button x:Name="SaveButton" Content="Сохранить" HorizontalAlignment="Left" Height="24" Margin="170,348,0,0" VerticalAlignment="Top" Width="100" Click="SaveButton_Click"/>
 
         <Label x:Name="SavedLabel" Content="Сохранено" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="125,249,0,0" Visibility="Hidden"/>

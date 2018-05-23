@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -25,7 +26,7 @@ namespace ReservationDesktop
         private const string UsersFilePath = "users.xml";
 
         private readonly XmlSerializer serializer = new XmlSerializer(typeof(User[]));
-        
+
         private readonly ObservableCollection<User> users;
 
         public AdministrationWindow()
@@ -84,7 +85,7 @@ namespace ReservationDesktop
                 }
                 else
                 {
-                    users.Add(new User(login, password));
+                    users.Add(new User(login, password).EncryptPassword());
 
                     LoginTextBox.Text = "";
                     PasswordTextBox.Text = "";
@@ -152,15 +153,8 @@ namespace ReservationDesktop
             string password = PasswordTextBox.Text;
             if (login != "" && password != "")
             {
-                if (!LoginInList(login))
-                {
-                    users[editedIndex] = new User(login, password);
-                    DisableEdit();
-                }
-                else
-                {
-                    ErrorLabel.Visibility = Visibility.Visible;
-                }
+                users[editedIndex] = new User(login, password).EncryptPassword();
+                DisableEdit();
             }
         }
 
@@ -176,5 +170,7 @@ namespace ReservationDesktop
 
             return false;
         }
+
+
     }
 }
