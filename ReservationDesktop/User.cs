@@ -19,6 +19,12 @@ namespace ReservationDesktop
             Password = password;
         }
 
+        public User(User user)
+        {
+            Login = user.Login;
+            Password = user.Password;
+        }
+
         public static bool operator ==(User user1, User user2)
         {
             return user1?.Login == user2?.Login && user1?.Password == user2?.Password;

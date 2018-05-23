@@ -48,7 +48,7 @@ namespace ReservationDesktop
             {
                 if (attempt == user)
                 {
-                    new MainWindow().Show();
+                    new MainWindow(user).Show();
                     Close();
                     return;
                 }

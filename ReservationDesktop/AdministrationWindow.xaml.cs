@@ -170,7 +170,5 @@ namespace ReservationDesktop
 
             return false;
         }
-
-
     }
 }

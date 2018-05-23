@@ -119,9 +119,11 @@ namespace ReservationDesktop
             = new ObservableCollection<Reservation>();
 
         private readonly XmlSerializer serializer = new XmlSerializer(typeof(Reservation[]));
+        private User ActiveUser;
 
-        public MainWindow()
+        public MainWindow(User user)
         {
+            ActiveUser = new User(user);
             InitializeComponent();
             ArtistsBox.ItemsSource = makeupArtists;
             TimeBox.ItemsSource = ReservationTimes;
@@ -334,8 +336,20 @@ namespace ReservationDesktop
             WordApp.Visible = true;
             WordApp.Documents.Add();
             Doc = WordApp.Documents[1];
+
+            Word.Range rng = Doc.Paragraphs[1].Range;
+            rng.Font.Size = 14;
+            rng.Font.Name = "Times New Roman";
+            rng.ParagraphFormat.Alignment = Word.WdParagraphAlignment.wdAlignParagraphJustify;
+            rng.Select();
+
             var rowsCount = reservations.Count + 1;
             var wordRange = Doc.Range(0, 0);
+            var description = Doc.Range(0, 0);
+            description.Text = "Диспетчер: " + ActiveUser.Login +
+                "\nСохранено: " + DateTime.Now.ToString() + "\n\n";
+            rng.Select();
+
             var wordTable = Doc.Tables.Add(wordRange, rowsCount, 6);
             wordTable.Cell(1, 1).Range.Text = "Время";
             wordTable.Cell(1, 2).Range.Text = "Дата";
@@ -352,6 +366,9 @@ namespace ReservationDesktop
                 wordTable.Cell(i + 2, 5).Range.Text = reservations[i].ClientName;
                 wordTable.Cell(i + 2, 6).Range.Text = reservations[i].PhoneNumber;
             }
+            wordTable.Borders.OutsideLineStyle = Word.WdLineStyle.wdLineStyleSingle;
+            wordTable.Borders.InsideLineStyle = Word.WdLineStyle.wdLineStyleSingle;
+            rng.Select();
 
             try
             {
@@ -383,6 +400,7 @@ namespace ReservationDesktop
             ExcelApp.SheetsInNewWorkbook = 1;
             ExcelApp.Workbooks.Add();
             ExcelWorksheet = ExcelApp.Workbooks[1].Worksheets.Item[1];
+            var itemsCount = reservations.Count;
 
             ExcelWorksheet.Range["A1"].Value = "Время";
             ExcelWorksheet.Range["B1"].Value = "Дата";
@@ -390,15 +408,22 @@ namespace ReservationDesktop
             ExcelWorksheet.Range["D1"].Value = "Услуга";
             ExcelWorksheet.Range["E1"].Value = "Клиент";
             ExcelWorksheet.Range["F1"].Value = "Контактный номер";
-            for (var i = 0; i < reservations.Count; i++)
+            for (var i = 0; i < itemsCount; i++)
             {
                 ExcelWorksheet.Cells[i + 2, 1].Value = reservations[i].ReservationTime;
-                ExcelWorksheet.Cells[i + 2, 2].Value = reservations[i].ReservationDate;
+                ExcelWorksheet.Cells[i + 2, 2].Value = reservations[i].ReservationDateTime.Date;
                 ExcelWorksheet.Cells[i + 2, 3].Value = reservations[i].MakeupArtist;
                 ExcelWorksheet.Cells[i + 2, 4].Value = reservations[i].Services;
                 ExcelWorksheet.Cells[i + 2, 5].Value = reservations[i].ClientName;
                 ExcelWorksheet.Cells[i + 2, 6].Value = reservations[i].PhoneNumber;
             }
+            ExcelWorksheet.Cells[itemsCount + 3, 1].Value = "Диспетчер";
+            ExcelWorksheet.Cells[itemsCount + 3, 2].Value = ActiveUser.Login;
+            ExcelWorksheet.Cells[itemsCount + 4, 1].Value = "Сохранено";
+            ExcelWorksheet.Cells[itemsCount + 4, 2].Value = DateTime.Now.ToString();
+
+            ExcelWorksheet.Columns.AutoFit();
+
             try
             {
                 Microsoft.Win32.SaveFileDialog dlg = new Microsoft.Win32.SaveFileDialog
